@@ -4,7 +4,7 @@
    Telegram is omitted — no Telegram link was provided.
 */
 const SITE = {
-  ca: "",
+  ca: "0x8cf263adfd88d72597a251908378a782a4e97aaf",
   twitter: "https://x.com/knightcat_rh",
 };
 
