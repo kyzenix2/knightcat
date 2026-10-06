@@ -21,11 +21,42 @@ html {
   scroll-padding-top: var(--nav-h);
 }
 
-body {
+body.font-sans {
   margin: 0;
   background: var(--ink);
   color: var(--cream);
-  font-family: Outfit, "Segoe UI", system-ui, sans-serif;
+  font-family: "Cormorant Garamond", Palatino, "Palatino Linotype", serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.font-display {
+  font-family: Cinzel, Palatino, "Palatino Linotype", serif;
+}
+
+.bg-ink {
+  background-color: var(--ink);
+}
+
+.bg-panel {
+  background-color: var(--panel);
+}
+
+.text-cream {
+  color: var(--cream);
+}
+
+.text-mist {
+  color: var(--mist);
+}
+
+.text-sage {
+  color: var(--sage);
+}
+
+.ring-gold\/60 {
+  --tw-ring-color: rgba(198, 163, 106, 0.6);
 }
 
 ::selection {
@@ -55,8 +86,8 @@ body {
 .nav-link {
   color: var(--mist);
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-weight: 600;
+  font-size: 1.15rem;
 }
 
 .nav-link:hover,
@@ -184,7 +215,7 @@ body {
 }
 
 .hero-content h1 {
-  text-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  animation: title-glow 4.8s ease-in-out infinite;
 }
 
 .mascot-wrap {
@@ -206,6 +237,7 @@ body {
   width: min(12.5rem, 62vw);
   aspect-ratio: 1;
   object-fit: cover;
+  animation: float-mascot 5.6s ease-in-out infinite;
   border-radius: 1.75rem;
   border: 1px solid rgba(198, 163, 106, 0.7);
   box-shadow:
@@ -216,8 +248,11 @@ body {
 
 .tagline {
   color: var(--cream);
-  font-size: 1.125rem;
-  line-height: 1.45;
+  font-family: "Cormorant Garamond", Palatino, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.45rem;
+  line-height: 1.35;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
 }
 
@@ -250,7 +285,8 @@ body {
 .kicker,
 .footer-label {
   color: var(--bow);
-  font-size: 0.75rem;
+  font-family: Cinzel, Palatino, "Palatino Linotype", serif;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -272,10 +308,26 @@ body {
 }
 
 .btn-primary {
+  position: relative;
+  overflow: hidden;
   background: var(--bow);
   color: var(--ink-text);
   padding: 0.95rem 1.4rem;
+  font-size: 1.15rem;
   box-shadow: 0 10px 30px rgba(232, 146, 168, 0.3);
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 28%, rgba(255, 255, 255, 0.48) 48%, transparent 68%);
+  transform: translateX(-130%);
+}
+
+.btn-primary:hover::after {
+  transform: translateX(130%);
+  transition: transform 0.7s ease;
 }
 
 .btn-primary:hover {
@@ -321,7 +373,8 @@ body {
 
 .ca-kicker {
   color: var(--bow);
-  font-size: 0.68rem;
+  font-family: Cinzel, Palatino, "Palatino Linotype", serif;
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -365,7 +418,8 @@ body {
   align-items: center;
   gap: 0.5rem;
   color: var(--mist);
-  font-size: 0.78rem;
+  font-family: Cinzel, Palatino, "Palatino Linotype", serif;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -531,13 +585,101 @@ body {
   width: min(100%, 36rem);
 }
 
+.hero-content {
+  animation: rise-in 1s ease both;
+}
+
+.info-card p,
+.highlight,
+.social-card p {
+  font-size: 1.15rem;
+  line-height: 1.45;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: rise-in 0.85s ease forwards;
+  animation-play-state: paused;
+}
+
+.reveal.is-in {
+  animation-play-state: running;
+}
+
+.reveal.is-shown {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+body.has-sword,
+body.has-sword * {
+  cursor: none !important;
+}
+
+.sword-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  width: 48px;
+  height: 48px;
+  opacity: 0;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 0 6px rgba(246, 196, 209, 0.65))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+  will-change: transform;
+}
+
+.spark-field {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-mascot {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes title-glow {
+  0%,
+  100% {
+    text-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 12px rgba(232, 146, 168, 0.12);
+  }
+  50% {
+    text-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 28px rgba(232, 146, 168, 0.48);
+  }
+}
+
 @media (min-width: 768px) {
   .mascot {
     width: 16rem;
   }
 
   .tagline {
-    font-size: 1.35rem;
+    font-size: 1.7rem;
   }
 
   .nav-menu,
